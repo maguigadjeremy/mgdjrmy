@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeremy Roger L. Maguigad | Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Background Grid Effect -->
+  <div class="bg-grid"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    
+    <!-- Changed to an anchor tag to enable click-to-scroll -->
+    <a href="#" class="nav-brand" style="text-decoration: none;">
+      <span class="logo-icon">J</span>
+      <span class="logo-text">JEREMY</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#about">ABOUT</a></li>
+      <li><a href="#projects">PROJECTS</a></li>
+      <li><a href="#certificates">CERTIFICATES</a></li>
+    </ul>
+    
+    <div class="nav-actions">
+      <button id="theme-toggle" aria-label="Toggle theme" class="theme-btn">
+        <!-- SVG Moon Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+      
+      <!-- Desktop "Hire Me" Button -->
+      <a href="#contact" class="btn-hire desktop-only">Hire Me</a>
+      
+      <!-- Mobile Hamburger Button -->
+      <button id="mobile-menu-btn" class="theme-btn mobile-only" aria-label="Open Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+      <div class="hero-content">
+        
+        <!-- Left Side: Text -->
+        <div class="hero-text">
+          <p class="hero-greeting">Hello, I'm</p>
+          <h1 class="hero-title">
+            JEREMY ROGER L. <br>
+            MAGUIGAD
+          </h1>
+          <h2 class="hero-subtitle">Aspiring Network Engineer</h2>
+          
+          <!-- Updated introductory text -->
+          <p class="hero-intro">
+            Building a solid foundation in routing, switching, and network infrastructure from the ground up. <br>
+            Driven by a strong curiosity for how data flows and a commitment to mastering core networking fundamentals.
+          </p>
+        </div>
+
+        <!-- Right Side: Image Box -->
+        <div class="hero-image-container">
+          <div class="image-box">
+            <!-- Update the src to your new file name -->
+            <img src="pictures/1x1-new.png" alt="Jeremy Roger L. Maguigad" class="profile-img">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+      <div class="about-container">
+        
+        <!-- Big Header -->
+        <div class="about-header-top">
+          <span class="mono-tag">ABOUT ME</span>
+          <h2 class="about-big-title">Computer Engineer. Aspiring Network Engineer.</h2>
+        </div>
+
+        <!-- Profile Row -->
+        <div class="about-profile-row">
+          <img src="pictures/1x1-new.png" alt="Profile Picture" class="about-avatar">
+          <h3 class="about-name">
+            JEREMY ROGER L. MAGUIGAD
+            <!-- Blue Checkmark SVG -->
+            <svg class="verified-badge" viewBox="0 0 24 24" width="20" height="20">
+              <path fill="#1DA1F2" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6 12.6l1.5-1.5 2.6 2.6 6.4-7.4 1.6 1.3-8 9.1z"/>
+            </svg>
+          </h3>
+        </div>
+
+        <!-- Text Content -->
+        <div class="about-text-content">
+          <p class="about-paragraph">
+            I am a recent 2026 graduate with a Bachelor of Science in Computer Engineering from the Polytechnic University of the Philippines. While my academic background gave me a robust understanding of hardware and full-stack systems, my primary focus has shifted toward the connectivity that brings it all together.
+          </p>
+          <p class="about-paragraph">
+            I am currently exploring the network engineering path from the ground up. Beyond reviewing foundational networking courses, I am building practical experience through hands-on home lab projects—such as configuring local network environments, testing physical connectivity, and exploring core routing and switching concepts.
+          </p>
+          <p class="about-paragraph">
+            I am actively seeking professional opportunities in the tech industry where I can leverage my computer engineering degree while gaining real-world, hands-on experience in network engineering and IT infrastructure.
+          </p>
+          
+          <p class="resume-link-text">
+            Want to know more about my experience? <a href="#" class="resume-link">Download my resume</a>.
+          </p>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+      <h2 class="section-title">Projects</h2>
+      
+      <!-- Filter Buttons -->
+      <div class="project-filters">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="web">Website Projects</button>
+        <button class="filter-btn" data-filter="network">Networking Projects</button>
+      </div>
+
+      <!-- New Grid Layout -->
+      <div class="projects-grid">
+        
+        <!-- Web Project 1 (SoloTrack) -->
+        <article class="project-card" data-category="web">
+          <div class="project-thumb">
+            <img src="pictures/solotrack.png" alt="SoloTrack">
+          </div>
+          <div class="project-content">
+            <h3 class="project-name">SoloTrack</h3>
+            <p class="project-short-desc">IoT-based gamified gym tracking portal.</p>
+            <div class="pill-group small">
+              <!-- Full Hardware & Software Stack added -->
+              <span class="pill">ESP32</span>
+              <span class="pill">Raspberry Pi</span>
+              <span class="pill">MediaPipe</span>
+              <span class="pill">RFID</span>
+              <span class="pill">PHP</span>
+              <span class="pill">MySQL</span>
+            </div>
+          </div>
+          <!-- Hidden detailed content for the pop-up -->
+          <div class="project-details hidden">
+            An IoT-based gamified gym tracking web portal incorporating ESP32 microcontrollers, load cell sensors, RFID authentication, and MediaPipe computer vision on a Raspberry Pi 5. Designed to merge hardware connectivity with full-stack web analytics.
+          </div>
+        </article>
+
+        <!-- Web Project 2 (Wanderbites) -->
+        <article class="project-card" data-category="web">
+          <div class="project-thumb">
+            <img src="pictures/wanderbites.png" alt="Wanderbites">
+          </div>
+          <div class="project-content">
+            <h3 class="project-name">Wanderbites</h3>
+            <p class="project-short-desc">Culinary destination showcase website.</p>
+            <div class="pill-group small">
+              <span class="pill">HTML5</span>
+              <span class="pill">CSS3</span>
+              <span class="pill">JavaScript</span>
+            </div>
+          </div>
+          <!-- Hidden detailed content for the pop-up -->
+          <div class="project-details hidden">
+            A responsive website project focused on showcasing culinary destinations. Built with an emphasis on clean UI/UX design, interactive elements, and accessible front-end architecture.
+          </div>
+        </article>
+
+        <!-- Networking Project 1 -->
+        <article class="project-card" data-category="network">
+          <div class="project-thumb">
+            <img src="pictures/homelab-thumb.png" alt="Home Lab">
+          </div>
+          <div class="project-content">
+            <h3 class="project-name">Home Lab Architecture</h3>
+            <p class="project-short-desc">Physical network and mesh Wi-Fi deployment.</p>
+            <div class="pill-group small">
+              <span class="pill">Cat6</span>
+              <span class="pill">Infrastructure</span>
+            </div>
+          </div>
+          <!-- Hidden detailed content for the pop-up -->
+          <div class="project-details hidden">
+            Designed and deployed a local home network environment utilizing physical Cat6 cabling and a mesh Wi-Fi system. Focus was placed on optimizing bandwidth coverage, testing physical connectivity, and minimizing latency across local servers.
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Modal Pop-up Structure -->
+    <div id="project-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="modal-body">
+          <!-- Content will be injected here via JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="section">
+      <h2 class="section-title">Certifications</h2>
+
+      <!-- Certificate Filters -->
+      <div class="project-filters">
+        <button class="cert-filter-btn filter-btn active" data-filter="all">All</button>
+        <button class="cert-filter-btn filter-btn" data-filter="industry">Industry Certifications</button>
+        <button class="cert-filter-btn filter-btn" data-filter="course">Course Completions</button>
+      </div>
+
+      <div class="projects-grid">
+        
+        <!-- Industry Certification (In Progress) -->
+        <article class="project-card cert-card" data-category="industry">
+          <div class="project-content">
+            <h3 class="project-name">Cisco CCNA (200-301)</h3>
+            <p class="project-short-desc">In Progress — Focusing on network access, IP connectivity, and security fundamentals.</p>
+            <div class="pill-group small">
+              <span class="pill">Routing & Switching</span>
+              <span class="pill">Active Study</span>
+            </div>
+          </div>
+          <!-- Hidden details for the pop-up (No Image Here) -->
+          <div class="cert-details hidden">
+            <p class="full-desc">Actively studying for the Cisco Certified Network Associate (200-301) exam. Currently mastering core networking concepts, including IPv4/IPv6 addressing, VLAN routing, and network security fundamentals.</p>
+            <a href="https://www.credly.com/users/maguigad-jeremy-roger-l" class="cert-link">View Profile on Credly</a>
+          </div>
+        </article>
+
+        <!-- Course Completion 1 -->
+        <article class="project-card cert-card" data-category="course">
+          <div class="project-content">
+            <h3 class="project-name">CCNA: Introduction to Networks</h3>
+            <p class="project-short-desc">Cisco Networking Academy — Issued Feb 5, 2025.</p>
+            <div class="pill-group small">
+              <span class="pill">Cisco Academy</span>
+              <span class="pill">Completed</span>
+            </div>
+          </div>
+          <!-- Hidden details for the pop-up -->
+          <div class="cert-details hidden">
+            <img src="pictures/CCNA Introduction to Networks.png" class="cert-img">
+            <p class="full-desc">Completed comprehensive foundational training on OSI layers, IPv4/IPv6 addressing schemes, and basic switch configurations through the official Cisco Networking Academy.</p>
+            <a href="https://www.credly.com/users/maguigad-jeremy-roger-l" class="cert-link">View Credential on Credly</a>
+          </div>
+        </article>
+
+        <!-- Course Completion 2 -->
+        <article class="project-card cert-card" data-category="course">
+          <div class="project-content">
+            <h3 class="project-name">CCNA: Switching, Routing, and Wireless Essentials</h3>
+            <p class="project-short-desc">Cisco Networking Academy — Issued Jul 21, 2025.</p>
+            <div class="pill-group small">
+              <span class="pill">Cisco Academy</span>
+              <span class="pill">Completed</span>
+            </div>
+          </div>
+          <!-- Hidden details for the pop-up -->
+          <div class="cert-details hidden">
+            <img src="pictures/CCNA Switching, Routing, and Wireless Essentials.png" class="cert-img">
+            <p class="full-desc">Completed hands-on configuration labs focusing on VLANs, Spanning Tree Protocol (STP), and wireless architectures through the official Cisco Networking Academy.</p>
+            <a href="https://www.credly.com/users/maguigad-jeremy-roger-l" class="cert-link">View Credential on Credly</a>
+          </div>
+        </article>
+
+        <!-- Course Completion 3 -->
+        <article class="project-card cert-card" data-category="course">
+          <div class="project-content">
+            <h3 class="project-name">CCNA: Enterprise Networking, Security, and Automation</h3>
+            <p class="project-short-desc">Cisco Networking Academy — Issued Jul 21, 2025.</p>
+            <div class="pill-group small">
+              <span class="pill">Cisco Academy</span>
+              <span class="pill">Completed</span>
+            </div>
+          </div>
+          <!-- Hidden details for the pop-up -->
+          <div class="cert-details hidden">
+            <img src="pictures/CCNA Enterprise Networking, Security, and Automation.png" class="cert-img">
+            <p class="full-desc">Mastered wide area network (WAN) technologies, quality of service (QoS) mechanisms, software-defined networking, routing, and automation concepts.</p>
+            <a href="https://www.credly.com/users/maguigad-jeremy-roger-l" class="cert-link">View Credential on Credly</a>
+          </div>
+        </article>
+
+        <!-- Course Completion 4 -->
+        <article class="project-card cert-card" data-category="course">
+          <div class="project-content">
+            <h3 class="project-name">Junior Cybersecurity Analyst Career Path</h3>
+            <p class="project-short-desc">Cisco Networking Academy — Issued Feb 26, 2026.</p>
+            <div class="pill-group small">
+              <span class="pill">Cybersecurity</span>
+              <span class="pill">Completed</span>
+            </div>
+          </div>
+          <!-- Hidden details for the pop-up -->
+          <div class="cert-details hidden">
+            <img src="pictures/Cybersecurity Essentials.png" class="cert-img">
+            <p class="full-desc">Completed comprehensive training covering threat intelligence, network security operations, incident response fundamentals, and vulnerability assessment.</p>
+            <a href="https://www.credly.com/users/maguigad-jeremy-roger-l" class="cert-link">View Credential on Credly</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+      <div class="contact-container">
+        
+        <!-- Left Side: Typography -->
+        <div class="contact-left">
+          <span class="mono-tag">GET IN TOUCH</span>
+          <h2 class="contact-big-title">LET'S<br>WORK<br>TOGETHER</h2>
+          <p class="contact-sub">Looking for the next problem worth solving.</p>
+          <p class="contact-desc">
+            I'm open to opportunities where I can contribute to network engineering, IT operations, and digital infrastructure.
+          </p>
+          <a href="#" class="btn-primary">DOWNLOAD RESUME &rarr;</a>
+        </div>
+
+        <!-- Right Side: Links & Cards -->
+        <div class="contact-right">
+          
+          <!-- Email Card -->
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=maguigadjeremy08@gmail.com" target="_blank" class="contact-card">
+            <div class="card-icon">
+              <!-- Mail SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </div>
+            <div class="card-info">
+              <span class="card-label">EMAIL</span>
+              <span class="card-value">maguigadjeremy08@gmail.com</span>
+            </div>
+            <span class="card-number">01</span>
+          </a>
+          
+          <!-- GitHub Card -->
+          <a href="https://github.com/yourusername" target="_blank" class="contact-card">
+            <div class="card-icon">
+              <!-- GitHub SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            </div>
+            <div class="card-info">
+              <span class="card-label">GITHUB</span>
+              <span class="card-value">github.com/yourusername</span>
+            </div>
+            <span class="card-number">02</span>
+            <span class="card-arrow">&#x2197;</span>
+          </a>
+
+          <!-- LinkedIn Card -->
+          <a href="https://www.linkedin.com/in/jeremy-roger-l-maguigad/" target="_blank" class="contact-card">
+            <div class="card-icon">
+              <!-- LinkedIn SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </div>
+            <div class="card-info">
+              <span class="card-label">LINKEDIN</span>
+              <span class="card-value">in/jeremy-roger-l-maguigad</span>
+            </div>
+            <span class="card-number">03</span>
+            <span class="card-arrow">&#x2197;</span>
+          </a>
+
+          <!-- Send Message Button -->
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=maguigadjeremy08@gmail.com" target="_blank" class="btn-secondary">SEND ME A MESSAGE</a>
+          
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+    <span class="close-mobile-menu">&times;</span>
+    <ul class="mobile-menu-links">
+      <li><a href="#about" class="mobile-link">ABOUT</a></li>
+      <li><a href="#projects" class="mobile-link">PROJECTS</a></li>
+      <li><a href="#certificates" class="mobile-link">CERTIFICATIONS</a></li>
+      <li><a href="#contact" class="mobile-link">CONTACT</a></li>
+    </ul>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
