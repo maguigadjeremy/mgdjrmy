@@ -19,59 +19,180 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('portfolio-theme', newTheme);
   });
 
-  /* --- 2. Project Filtering Logic --- */
-  // Strictly select buttons and cards ONLY inside the #projects section
+  /* --- 2. Project Filtering & Pagination Logic --- */
   const projectFilterBtns = document.querySelectorAll('#projects .filter-btn');
-  const projects = document.querySelectorAll('#projects .project-card');
+  const projects = Array.from(document.querySelectorAll('#projects .project-card'));
+  const dotsContainer = document.getElementById('project-dots');
 
+  let currentProjectPage = 1;
+  // Shows 3 projects on desktop, but switches to 1 project on mobile/tablets
+  let projectItemsPerPage = window.innerWidth <= 850 ? 1 : 3;
+  let activeProjects = [...projects]; // Holds the currently filtered projects
+
+  // Update items per page dynamically if the window is resized
+  window.addEventListener('resize', () => {
+    const newItemsPerPage = window.innerWidth <= 850 ? 1 : 3;
+    if (newItemsPerPage !== projectItemsPerPage) {
+      projectItemsPerPage = newItemsPerPage;
+      currentProjectPage = 1; // Reset to page 1 on layout shift
+      renderProjects();
+    }
+  });
+
+  function renderProjects() {
+    // 1. Hide ALL projects first
+    projects.forEach(p => p.style.display = 'none');
+
+    // 2. Calculate indices for current page
+    const startIndex = (currentProjectPage - 1) * projectItemsPerPage;
+    const endIndex = startIndex + projectItemsPerPage;
+
+    // 3. Show only projects for the current active page
+    activeProjects.forEach((p, index) => {
+      if (index >= startIndex && index < endIndex) {
+        p.style.display = 'flex'; 
+      }
+    });
+
+    // 4. Generate the clickable dots
+    renderDots();
+  }
+
+  function renderDots() {
+    if (!dotsContainer) return;
+    dotsContainer.innerHTML = '';
+    const totalPages = Math.ceil(activeProjects.length / projectItemsPerPage);
+
+    // Hide the dots container entirely if everything fits on 1 page
+    if (totalPages <= 1) {
+      dotsContainer.style.display = 'none';
+      return;
+    }
+
+    dotsContainer.style.display = 'flex';
+    
+    // Create dots based on total pages
+    for (let i = 1; i <= totalPages; i++) {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if (i === currentProjectPage) dot.classList.add('active');
+      
+      // Add click event to swap pages
+      dot.addEventListener('click', () => {
+        currentProjectPage = i;
+        renderProjects();
+      });
+      
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  // Filter Button Click Events
   projectFilterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      // Remove 'active' styling from all project buttons
+      // Highlight active button
       projectFilterBtns.forEach(b => b.classList.remove('active'));
-      
-      // Add 'active' styling to the clicked button
       btn.classList.add('active');
 
-      // Get the category we want to show
       const filterValue = btn.getAttribute('data-filter');
 
-      // Loop through projects and hide/show them
-      projects.forEach(project => {
-        if (filterValue === 'all' || project.getAttribute('data-category') === filterValue) {
-          project.classList.remove('hide');
-        } else {
-          project.classList.add('hide');
-        }
+      // Filter the array of active projects based on category
+      activeProjects = projects.filter(project => {
+        return filterValue === 'all' || project.getAttribute('data-category') === filterValue;
       });
+
+      // Reset to page 1 and re-render the grid and dots
+      currentProjectPage = 1;
+      renderProjects();
     });
   });
 
-  /* --- 3. Certificate Filtering Logic --- */
-  // Strictly select buttons and cards ONLY inside the #certificates section
-  const certFilterBtns = document.querySelectorAll('#certificates .filter-btn');
-  const certs = document.querySelectorAll('#certificates .cert-card');
+  // Initial render on page load
+  renderProjects();
 
+  /* --- 3. Certificate Filtering & Pagination Logic --- */
+  const certFilterBtns = document.querySelectorAll('#certificates .filter-btn');
+  const certs = Array.from(document.querySelectorAll('#certificates .cert-card'));
+  const certDotsContainer = document.getElementById('cert-dots');
+
+  let currentCertPage = 1;
+  let certItemsPerPage = window.innerWidth <= 850 ? 1 : 3;
+  let activeCerts = [...certs];
+
+  // Update certificate items per page dynamically on window resize
+  window.addEventListener('resize', () => {
+    const newItemsPerPage = window.innerWidth <= 850 ? 1 : 3;
+    if (newItemsPerPage !== certItemsPerPage) {
+      certItemsPerPage = newItemsPerPage;
+      currentCertPage = 1; 
+      renderCerts();
+    }
+  });
+
+  function renderCerts() {
+    // 1. Hide ALL certificates first
+    certs.forEach(c => c.style.display = 'none');
+
+    // 2. Calculate indices for current page
+    const startIndex = (currentCertPage - 1) * certItemsPerPage;
+    const endIndex = startIndex + certItemsPerPage;
+
+    // 3. Show only certificates for the current active page
+    activeCerts.forEach((c, index) => {
+      if (index >= startIndex && index < endIndex) {
+        c.style.display = 'flex'; 
+      }
+    });
+
+    // 4. Generate the clickable dots
+    renderCertDots();
+  }
+
+  function renderCertDots() {
+    if (!certDotsContainer) return;
+    certDotsContainer.innerHTML = '';
+    const totalPages = Math.ceil(activeCerts.length / certItemsPerPage);
+
+    if (totalPages <= 1) {
+      certDotsContainer.style.display = 'none';
+      return;
+    }
+
+    certDotsContainer.style.display = 'flex';
+    
+    for (let i = 1; i <= totalPages; i++) {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if (i === currentCertPage) dot.classList.add('active');
+      
+      dot.addEventListener('click', () => {
+        currentCertPage = i;
+        renderCerts();
+      });
+      
+      certDotsContainer.appendChild(dot);
+    }
+  }
+
+  // Filter Button Click Events
   certFilterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      // Remove 'active' styling from all cert buttons
       certFilterBtns.forEach(b => b.classList.remove('active'));
-      
-      // Add 'active' styling to the clicked button
       btn.classList.add('active');
 
-      // Get the category we want to show
       const filterValue = btn.getAttribute('data-filter');
 
-      // Loop through certs and hide/show them
-      certs.forEach(cert => {
-        if (filterValue === 'all' || cert.getAttribute('data-category') === filterValue) {
-          cert.classList.remove('hide');
-        } else {
-          cert.classList.add('hide');
-        }
+      activeCerts = certs.filter(cert => {
+        return filterValue === 'all' || cert.getAttribute('data-category') === filterValue;
       });
+
+      currentCertPage = 1;
+      renderCerts();
     });
   });
+
+  // Initial render on page load
+  renderCerts();
 
   /* --- 4. Modal Popup Logic (Shared Window) --- */
   const modal = document.getElementById('project-modal');

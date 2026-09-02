@@ -326,6 +326,62 @@ body {
   display: none;
 }
 
+/* --- Projects & Certificates Section Formatting & Slider Dots --- */
+#projects,
+#certificates {
+  padding: 4rem 0 2rem; /* Tightens vertical space to fit full-screen */
+}
+
+/* Force exactly 3 columns on desktop for sliders */
+#projects .projects-grid,
+#certificates .projects-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2); 
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.dot:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.dot.active {
+  background-color: var(--text-main);
+  transform: scale(1.2);
+}
+
+/* Light Theme Dot Overrides */
+[data-theme="light"] .dot {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+[data-theme="light"] .dot:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+[data-theme="light"] .dot.active {
+  background-color: var(--text-main);
+}
+
+/* Scale down to 1 column on mobile for the 1-per-slide logic */
+@media (max-width: 850px) {
+  #projects .projects-grid,
+  #certificates .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* --- Project Cards & Grid --- */
 .projects-grid {
   display: grid;
@@ -392,6 +448,16 @@ body {
   display: none;
 }
 
+/* Ensure all certificate cards are a consistent height across different pages */
+.cert-card {
+  min-height: 260px;
+}
+
+/* Ensure all project cards maintain a consistent height across pages */
+#projects .project-card {
+  min-height: 420px;
+}
+
 /* --- Modal Styles --- */
 .modal {
   display: none; 
@@ -447,7 +513,7 @@ body {
 
 /* --- About Section (Editorial Layout) --- */
 .about-section {
-  padding: 6rem 0;
+  padding: 4rem 0 2rem; /* Reduced vertical padding so it doesn't fight the navbar */
 }
 
 .about-container {
@@ -456,7 +522,7 @@ body {
 }
 
 .about-header-top {
-  margin-bottom: 3.5rem;
+  margin-bottom: 1.5rem; /* Reduced from 3.5rem to pull the profile row up */
 }
 
 .mono-tag {
@@ -465,12 +531,12 @@ body {
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   display: block;
 }
 
 .about-big-title {
-  font-size: 3.5rem;
+  font-size: 2.8rem; /* Scaled down slightly to prevent unnecessary line wrapping */
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -1.5px;
@@ -480,20 +546,20 @@ body {
 .about-profile-row {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  margin-bottom: 2.5rem;
+  gap: 1rem;
+  margin-bottom: 1.25rem; /* Tighter gap between the name and the paragraphs */
 }
 
 .about-avatar {
-  width: 110px; 
-  height: 110px; 
+  width: 80px;  /* Shrunk from 110px to save vertical space */
+  height: 80px; 
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid var(--border);
 }
 
 .about-name {
-  font-size: 1.4rem; 
+  font-size: 1.2rem; 
   font-weight: 600;
   text-transform: uppercase;
   display: flex;
@@ -513,16 +579,16 @@ body {
 
 .about-paragraph {
   color: var(--text-muted);
-  font-size: 1.05rem;
-  line-height: 1.8;
-  margin-bottom: 1.5rem;
+  font-size: 0.95rem; /* Slightly smaller text */
+  line-height: 1.6;   /* Reduced line-height to pack the text closer together */
+  margin-bottom: 1rem; /* Less space between paragraphs */
   text-align: justify; 
 }
 
 .resume-link-text {
   color: var(--text-muted);
-  font-size: 1rem;
-  margin-top: 2.5rem;
+  font-size: 0.95rem;
+  margin-top: 1.5rem; /* Pulled closer to the bottom paragraph */
 }
 
 .resume-link {
@@ -538,9 +604,17 @@ body {
   text-decoration-color: var(--text-main);
 }
 
-/* --- Global Smooth Scroll --- */
+/* Responsive adjustment for About Section */
+@media (max-width: 768px) {
+  .about-big-title {
+    font-size: 2.2rem;
+  }
+}
+
+/* --- Global Smooth Scroll & Snapping --- */
 html {
   scroll-behavior: smooth;
+  scroll-snap-type: y mandatory; /* Forces the browser to snap to sections */
 }
 
 /* --- Contact Section --- */
@@ -784,6 +858,22 @@ html {
   }
 }
 
+/* --- Full-Page Scroll Formatting --- */
+.hero-section,
+.section {
+  scroll-snap-align: start; /* Tells the snap where to lock in */
+  scroll-snap-stop: always; /* Prevents skipping sections if you scroll hard */
+  min-height: 100vh; /* Forces every section to be at least the height of the screen */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically centers the content inside the "page" */
+}
+
+/* Adds a small buffer at the top so your floating navbar doesn't cover section titles */
+#about, #projects, #certificates, #contact {
+  scroll-margin-top: 1rem; 
+}
+
 /* ========================================= */
 /* --- MOBILE RESPONSIVE OVERRIDES ---       */
 /* ========================================= */
@@ -872,4 +962,15 @@ html {
   /* 7. Button Visibility Toggle */
   .desktop-only { display: none !important; }
   .mobile-only { display: flex !important; }
+
+  /* Disable full-page snapping on mobile so tall stacked content remains readable */
+  html {
+    scroll-snap-type: none;
+  }
+  
+  .hero-section,
+  .section {
+    min-height: auto;
+    display: block;
+  }
 }
