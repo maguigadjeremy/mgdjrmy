@@ -212,7 +212,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const pills = card.querySelector('.pill-group').innerHTML;
       const imgSrc = card.querySelector('.project-thumb img').src;
 
-      // Build the interior HTML of the modal WITH the image
+      // Check if this project has a demo link attached
+      const demoLinkEl = card.querySelector('.demo-link');
+      let demoButton = '';
+      if (demoLinkEl) {
+        // Formats the link as a button matching the certificates section
+        demoButton = `<div style="margin-top: 2rem;"><a href="${demoLinkEl.href}" target="_blank" class="filter-btn active" style="text-decoration: none; display: inline-block;">${demoLinkEl.innerText}</a></div>`;
+      }
+
+      // Build the interior HTML of the modal WITH the image and the new button
       modalBody.innerHTML = `
         <div style="width: 100%; height: 280px; border-radius: 8px; overflow: hidden; margin-bottom: 1.5rem;">
           <img src="${imgSrc}" style="width: 100%; height: 100%; object-fit: cover;" alt="${title}">
@@ -220,6 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <h2 style="font-size: 2rem; margin-bottom: 1rem;">${title}</h2>
         <div class="pill-group small" style="margin-bottom: 1.5rem;">${pills}</div>
         <p style="color: var(--text-muted); line-height: 1.8; font-size: 1.05rem;">${details}</p>
+        ${demoButton}
       `;
 
       // Show the modal

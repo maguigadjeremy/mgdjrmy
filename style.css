@@ -444,7 +444,8 @@ body {
 }
 
 .project-details.hidden,
-.cert-details.hidden {
+.cert-details.hidden,
+.demo-link.hidden {
   display: none;
 }
 
