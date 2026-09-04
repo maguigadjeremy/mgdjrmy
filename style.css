@@ -1031,6 +1031,13 @@ html {
   object-fit: cover;
   border-radius: 12px;
   border: 1px solid var(--border);
+  cursor: zoom-in; /* Changes cursor to a magnifying glass */
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.collage-grid img:hover {
+  transform: scale(1.02);
+  border-color: var(--text-main);
 }
 
 @media (max-width: 768px) {

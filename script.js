@@ -220,11 +220,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const expandedFeaturesEl = card.querySelector('.project-features-expanded');
       const expandedFeaturesHTML = expandedFeaturesEl ? expandedFeaturesEl.innerHTML : '<p>Details coming soon.</p>';
 
+      // Grab Page 3 Data (Collage) - ADDED GALLERY THUMB CLASS HERE
       const collageImages = card.querySelectorAll('.project-collage img');
       let collageHTML = '';
       if (collageImages.length > 0) {
         collageImages.forEach(img => {
-          collageHTML += `<img src="${img.src}" alt="Gallery Image">`;
+          collageHTML += `<img src="${img.src}" class="gallery-thumb-img" style="cursor: zoom-in;" alt="Gallery Image">`;
         });
       }
 
@@ -269,9 +270,9 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             
             <div style="flex: 1 1 450px; display: flex; flex-direction: column; gap: 1.5rem;">
-              <!-- Hover Image Box -->
+              <!-- Hover Image Box - ADDED GALLERY THUMB CLASS HERE -->
               <div class="modal-hover-box" style="width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
-                <img src="${imgSrc}" style="width: 100%; height: auto; display: block;" alt="${title}">
+                <img src="${imgSrc}" class="gallery-thumb-img" style="width: 100%; height: auto; display: block; cursor: zoom-in;" alt="${title}">
               </div>
               
               <!-- Hover & Clickable Features Box -->
@@ -476,5 +477,34 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // --- Image Lightbox Modal Logic (ADDED HERE) ---
+  const lightboxModal = document.getElementById('image-lightbox-modal');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const closeLightboxBtn = document.querySelector('.close-lightbox-modal');
+
+  // Listen for clicks on any image with the 'gallery-thumb-img' class
+  if (modalBody && lightboxModal) {
+    modalBody.addEventListener('click', (e) => {
+      if (e.target.classList.contains('gallery-thumb-img')) {
+        lightboxImg.src = e.target.src;
+        lightboxModal.classList.add('show');
+      }
+    });
+  }
+
+  // Close lightbox on 'X' click
+  if (closeLightboxBtn && lightboxModal) {
+    closeLightboxBtn.addEventListener('click', () => {
+      lightboxModal.classList.remove('show');
+    });
+  }
+
+  // Close lightbox when clicking outside the image
+  window.addEventListener('click', (e) => {
+    if (lightboxModal && e.target === lightboxModal) {
+      lightboxModal.classList.remove('show');
+    }
+  });
 
 });
