@@ -203,37 +203,178 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4a. Add click event to all PROJECT cards
   projects.forEach(card => {
     card.addEventListener('click', () => {
-      // Keep the project modal at its original compact size
-      modalContent.style.maxWidth = '650px';
+      modalContent.style.maxWidth = '1000px';
 
-      // Grab data from the clicked card
+      // Grab all data from the card
       const title = card.querySelector('.project-name').innerText;
       const details = card.querySelector('.project-details').innerHTML;
       const pills = card.querySelector('.pill-group').innerHTML;
       const imgSrc = card.querySelector('.project-thumb img').src;
+      
+      const featuresEl = card.querySelector('.project-features');
+      const featuresHTML = featuresEl ? featuresEl.innerHTML : '<li>Features coming soon.</li>';
 
-      // Check if this project has a demo link attached
+      const explanationEl = card.querySelector('.project-explanation');
+      const explanationHTML = explanationEl ? explanationEl.innerHTML : '<p>Details coming soon.</p>';
+
+      const expandedFeaturesEl = card.querySelector('.project-features-expanded');
+      const expandedFeaturesHTML = expandedFeaturesEl ? expandedFeaturesEl.innerHTML : '<p>Details coming soon.</p>';
+
+      const collageImages = card.querySelectorAll('.project-collage img');
+      let collageHTML = '';
+      if (collageImages.length > 0) {
+        collageImages.forEach(img => {
+          collageHTML += `<img src="${img.src}" alt="Gallery Image">`;
+        });
+      }
+
       const demoLinkEl = card.querySelector('.demo-link');
       let demoButton = '';
       if (demoLinkEl) {
-        // Formats the link as a button matching the certificates section
-        demoButton = `<div style="margin-top: 2rem;"><a href="${demoLinkEl.href}" target="_blank" class="filter-btn active" style="text-decoration: none; display: inline-block;">${demoLinkEl.innerText}</a></div>`;
+        demoButton = `
+          <a href="${demoLinkEl.href}" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.5rem; font-size: 0.85rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            ${demoLinkEl.innerText}
+          </a>`;
       }
 
-      // Build the interior HTML of the modal WITH the image and the new button
+      const siteLinkEl = card.querySelector('.site-link');
+      let siteButton = '';
+      if (siteLinkEl) {
+        siteButton = `
+          <a href="${siteLinkEl.href}" target="_blank" class="filter-btn active" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.5rem; font-size: 0.85rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            Visit Site
+          </a>`;
+      }
+
+      // Build the 3-Page Modal Structure with Hover Classes
       modalBody.innerHTML = `
-        <div style="width: 100%; height: 280px; border-radius: 8px; overflow: hidden; margin-bottom: 1.5rem;">
-          <img src="${imgSrc}" style="width: 100%; height: 100%; object-fit: cover;" alt="${title}">
+        <div class="modal-slider-wrapper" style="position: relative; padding-bottom: 3.5rem;">
+          
+          <!-- Slide 1: Overview -->
+          <div class="modal-slide active-slide" id="slide-0" style="display: flex; flex-wrap: wrap; gap: 3rem;">
+            <div style="flex: 1 1 350px; display: flex; flex-direction: column;">
+              <h2 style="font-size: 2.5rem; margin-bottom: 1.2rem; line-height: 1.1;">${title}</h2>
+              <p style="color: var(--text-muted); line-height: 1.7; font-size: 1.05rem; margin-bottom: 1.5rem;">${details}</p>
+              <div style="display: flex; gap: 1rem; margin-bottom: 2.5rem; flex-wrap: wrap;">
+                ${demoButton}
+                ${siteButton}
+              </div>
+              <h3 style="font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-main);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                Technologies Used
+              </h3>
+              <div class="pill-group small" style="margin-bottom: 1.5rem;">${pills}</div>
+            </div>
+            
+            <div style="flex: 1 1 450px; display: flex; flex-direction: column; gap: 1.5rem;">
+              <!-- Hover Image Box -->
+              <div class="modal-hover-box" style="width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
+                <img src="${imgSrc}" style="width: 100%; height: auto; display: block;" alt="${title}">
+              </div>
+              
+              <!-- Hover & Clickable Features Box -->
+              <div id="key-features-trigger" class="modal-hover-box clickable-box" style="background: var(--surface); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); position: relative;">
+                <span style="position: absolute; top: 1.5rem; right: 1.5rem; color: var(--text-muted); opacity: 0.5;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+                </span>
+                <h3 style="font-size: 1.1rem; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-main);">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> 
+                  Key Features
+                </h3>
+                <ul class="modal-features-list-ul">${featuresHTML}</ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2: Full Explanation -->
+          <div class="modal-slide" id="slide-1" style="display: none; flex-direction: column; max-width: 800px; margin: 0 auto;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; line-height: 1.1;">System Overview</h2>
+            <div style="color: var(--text-muted); line-height: 1.8; font-size: 1.1rem;">
+              ${explanationHTML}
+            </div>
+          </div>
+
+          <!-- Slide 3: Gallery Collage -->
+          <div class="modal-slide" id="slide-2" style="display: none; flex-direction: column;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; line-height: 1.1;">Gallery</h2>
+            <div class="collage-grid">
+              ${collageHTML}
+            </div>
+          </div>
+
+          <!-- Slider Dots -->
+          <div class="slider-dots" style="position: absolute; bottom: 0; left: 0; width: 100%; display: flex; justify-content: center; gap: 0.75rem;">
+            <div class="dot modal-dot active" data-target="0"></div>
+            <div class="dot modal-dot" data-target="1"></div>
+            <div class="dot modal-dot" data-target="2"></div>
+          </div>
         </div>
-        <h2 style="font-size: 2rem; margin-bottom: 1rem;">${title}</h2>
-        <div class="pill-group small" style="margin-bottom: 1.5rem;">${pills}</div>
-        <p style="color: var(--text-muted); line-height: 1.8; font-size: 1.05rem;">${details}</p>
-        ${demoButton}
       `;
 
-      // Show the modal
+      // Attach Click Events to Modal Dots
+      const slides = modalBody.querySelectorAll('.modal-slide');
+      const dots = modalBody.querySelectorAll('.modal-dot');
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+          const targetIndex = parseInt(e.target.getAttribute('data-target'));
+          dots.forEach(d => d.classList.remove('active'));
+          e.target.classList.add('active');
+          slides.forEach((slide, index) => {
+            if (index === targetIndex) {
+              slide.style.display = slide.id === 'slide-0' ? 'flex' : 'flex';
+            } else {
+              slide.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // Hook up the Secondary Expanded Features Modal
+      const featuresTrigger = document.getElementById('key-features-trigger');
+      const featuresModal = document.getElementById('features-modal');
+      const featuresModalContent = document.querySelector('.expanded-features-content');
+
+      if (featuresTrigger && featuresModal) {
+        featuresTrigger.addEventListener('click', () => {
+          featuresModalContent.innerHTML = expandedFeaturesHTML;
+          featuresModal.classList.add('show');
+        });
+      }
+
+      // Show the main modal
       modal.classList.add('show');
     });
+  });
+
+  // --- Modal Close Logic (Global) ---
+  const featuresModal = document.getElementById('features-modal');
+  const closeFeaturesBtn = document.querySelector('.close-features-modal');
+
+  // Close Main Modal when clicking the 'X'
+  closeBtn.addEventListener('click', () => {
+    modal.classList.remove('show');
+  });
+
+  // Close Secondary Modal when clicking its 'X'
+  if (closeFeaturesBtn && featuresModal) {
+    closeFeaturesBtn.addEventListener('click', () => {
+      featuresModal.classList.remove('show');
+    });
+  }
+
+  // Close modals when clicking on the dark background outside the boxes
+  window.addEventListener('click', (e) => {
+    if (featuresModal && e.target === featuresModal) {
+      // If clicking the background of the secondary modal, only close the secondary one
+      featuresModal.classList.remove('show');
+    } else if (e.target === modal) {
+      // If clicking the background of the main modal, close both just in case
+      modal.classList.remove('show');
+      if (featuresModal) featuresModal.classList.remove('show');
+    }
   });
 
   // 4b. Add click event to all CERTIFICATE cards
